@@ -1,4 +1,14 @@
 docker stop $(docker ps -a -q)
 docker rm $(docker ps -a -q)
+/////////////////////////////////////////////
+docker run --name cas1 -p 9042:9042 -e CASSANDRA_CLUSTER_NAME=MyCluster -e CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch -e CASSANDRA_DC=datacenter1 -d cassandra
+docker inspect --format='{{ .NetworkSettings.IPAddress }}' cas1
+docker run --name cas2 -e CASSANDRA_SEEDS="$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' cas1)" -e CASSANDRA_CLUSTER_NAME=MyCluster -e CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch -e CASSANDRA_DC=datacenter1 -d cassandra
+docker run --name cas3 -e CASSANDRA_SEEDS="$(docker inspect --format='{{ .NetworkSettings.IPAddress }}' cas1)" -e CASSANDRA_CLUSTER_NAME=MyCluster -e CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch -e CASSANDRA_DC=datacenter2 -d cassandra
+docker exec -ti cas1 nodetool status
 
+docker exec -ti cas1 /bin/bash
+cqlsh
 
+CREATE KEYSPACE IF NOT EXISTS srds WITH REPLICATION = { 'class' : 'SimpleStrategy', 'replication_factor' : 1 };
+USE srds;
