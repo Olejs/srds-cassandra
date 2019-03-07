@@ -27,73 +27,44 @@ public class Stats {
     }
 
     public void gotReservation(int id, int seats) {
-        log(id, "I got reservation! {"+seats+"}");
+        log(id, "Dostałem się na MEETUP {"+seats+"}");
     }
 
     public void go(int id, int seats) {
         reservations.add(seats);
-        log(id, "Ready for a ride!");
+        log(id, "Zaczynamy MEETUP!!!");
         happyClients++;
     }
 
     public void cancel(int id) {
-        log(id, "I cancel the ticket");
+        log(id, "Anuluje bilet");
         cancelingClients++;
     }
 
     public void stay(int id, int seats) {
         sad.add(seats);
-        log(id,"I can't go :(");
+        log(id,"||||NIE MAM WEJSCIA NA MEETUP :( ||||");
         sadClients++;
     }
 
     public void mistake(int id) {
-        log(id,"This is my seat!");
+        log(id,"*****************CHYBA MAMY DO CZYNIENIA Z BLEDEM SYSTEMU*********************");
         angryClients++;
     }
 
     public void showStats() {
-        System.out.println("happyClients = "+happyClients);
-        System.out.println("sadClients = "+sadClients);
-        System.out.println("cancelingClients = "+cancelingClients);
-        System.out.println("angryClients = "+angryClients);
-        System.out.println("------\nHappy Clients:");
+        System.out.println("happyParticipants = "+happyClients);
+        System.out.println("sadParticipants = "+sadClients);
+        System.out.println("cancelingParticipants = "+cancelingClients);
+        System.out.println("angryParticipants = "+angryClients);
+        System.out.println("------\nHappy Participant:");
         reservations.forEach(r -> System.out.print("" + r + ", "));
         System.out.println("\n------");
 
-        System.out.println("------\nSad Clients:");
+        System.out.println("------\nSad Participant:");
         sad.forEach(r -> System.out.print("" + r + ", "));
         System.out.println("\n------");
 
-    }
-
-//    public void showTickets(int meetUpId, int roomsCount, int roomCapacity) {
-//        TicketRequest ticketRequest = new TicketRequest(meetUpId, 0, 0, roomsCount, roomCapacity);
-//        System.out.println("------");
-//        List<List<Integer>> tickets = ticketRequest.giveTickets(meetUpId);
-//
-//        for (int i = 0; i < tickets.size(); i++) {
-//            List<Integer> room = tickets.get(i);
-//            System.out.println("Room #"+i + " max="+roomCapacity+"");
-//            for (Integer c : room) {
-//                System.out.print("["+c+"], ");
-//            }
-//            System.out.println("\n----");
-//        }
-//
-////        for (List<Integer> room : ticketRequest.giveTickets(trainId)) {
-////
-////        }
-//        System.out.println("Stream of clients: ");
-//        ticketRequest.getAll(meetUpId).forEach(c -> System.out.print("" + c.getSeats() + ", "));
-//        System.out.println("-");
-////        ticketRequest.giveTickets(trainId).forEach(room -> room.forEach(s -> System.out.print("" + s + ", ")));
-//    }
-
-    public void showMoney() {
-        System.out.println("We earned "+happyClients * ticketCost + "$");
-        System.out.println("We lost "+angryClients * refundCost + "$");
-        System.out.println("Score "+(happyClients * ticketCost - angryClients * refundCost)  + "$");
     }
 
     private void log(int id, String message) {

@@ -29,35 +29,29 @@ public class TicketRequest {
         try {
             BackendSession.insert(this);
         } catch(cassdemo.backend.BackendException e) {
-            System.out.println("Could not connect to the cluster. " + e.getMessage() + ".");
+            System.out.println("Problem z podłączeniem do clustra. " + e.getMessage() + ".");
         }
     }
 
     public boolean isApproved(int clientId, int trainId) {
         List<TicketRequest> ticketRequests = getAllHappy(trainId);
 
-        ArrayList<Integer> rooms = new ArrayList<>();
+        ArrayList<Integer> workshops = new ArrayList<>();
 
         for (int i = 0; i < workshopCount; i++) {
-            rooms.add(workshopCapacity);
+            workshops.add(workshopCapacity);
         }
-
-//        rooms.forEach(System.out::println);
 
         for (TicketRequest ticketRequest : ticketRequests) {
             boolean decision = false;
             for (int i = 0; i < workshopCount; i++) {
-                int availableSeats = rooms.get(i);
+                int availableSeats = workshops.get(i);
                 if (availableSeats >= ticketRequest.seats) {
-                    rooms.set(i, availableSeats - ticketRequest.seats);
+                    workshops.set(i, availableSeats - ticketRequest.seats);
                     decision = true;
                     break;
                 }
             }
-
-//            System.out.println("-");
-//            rooms.forEach(System.out::println);
-//            System.out.println("-" + ticketRequest.clientId + " - " + clientId + " = "+ decision );
 
             if (ticketRequest.clientId == clientId) {
                 return decision;
@@ -76,34 +70,6 @@ public class TicketRequest {
 
     public int getSeats() {
         return seats;
-    }
-
-    public List<List<Integer>> giveTickets(int trainId) {
-        List<TicketRequest> ticketRequests = getAllHappy(trainId);
-//        List<Integer> tickets = new ArrayList<>();
-        List<List<Integer>> tickets = new ArrayList<>();
-
-        ArrayList<Integer> rooms = new ArrayList<>();
-
-        for (int i = 0; i < workshopCount; i++) {
-            rooms.add(workshopCapacity);
-            List<Integer> room = new ArrayList<>();
-            tickets.add(room);
-        }
-
-        for (TicketRequest ticketRequest : ticketRequests) {
-            for (int i = 0; i < workshopCount; i++) {
-                int availableSeats = rooms.get(i);
-                if (availableSeats >= ticketRequest.seats) {
-                    rooms.set(i, availableSeats - ticketRequest.seats);
-//                    System.out.println("+++ " + ticketRequest.seats);
-                    tickets.get(i).add(ticketRequest.seats);
-//                    tickets.add();
-                    break;
-                }
-            }
-        }
-        return tickets;
     }
 
     public List<TicketRequest> getAllHappy(int trainId) {

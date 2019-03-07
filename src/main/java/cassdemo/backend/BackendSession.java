@@ -43,15 +43,6 @@ public class BackendSession {
 		prepareStatements();
 	}
 
-	private static PreparedStatement SELECT_ALL_FROM_USERS;
-	private static PreparedStatement INSERT_INTO_USERS;
-	private static PreparedStatement DELETE_ALL_FROM_USERS;
-
-	private static final String USER_FORMAT = "- %-10s  %-16s %-10s %-10s\n";
-
-	// private static final SimpleDateFormat df = new
-	// SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 	public void prepareStatements() throws BackendException {
 		//tworzymy tabele TicketRequests
 		StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS ")
@@ -95,44 +86,7 @@ public class BackendSession {
 		return rs;
 	}
 
-//	public String selectAll() throws BackendException {
-//		StringBuilder builder = new StringBuilder();
-//		BoundStatement bs = new BoundStatement(SELECT_ALL_FROM_USERS);
-//
-//		ResultSet rs = null;
-//
-//		try {
-//			rs = session.execute(bs);
-//		} catch (Exception e) {
-//			throw new BackendException("Could not perform a query. " + e.getMessage() + ".", e);
-//		}
-//
-//		for (Row row : rs) {
-//			String rcompanyName = row.getString("companyName");
-//			String rname = row.getString("name");
-//			int rphone = row.getInt("phone");
-//			String rstreet = row.getString("street");
-//
-//			builder.append(String.format(USER_FORMAT, rcompanyName, rname, rphone, rstreet));
-//		}
-//
-//		return builder.toString();
-//	}
-//
-//	public void upsertUser(String companyName, String name, int phone, String street) throws BackendException {
-//		BoundStatement bs = new BoundStatement(INSERT_INTO_USERS);
-//		bs.bind(companyName, name, phone, street);
-//
-//		try {
-//			session.execute(bs);
-//		} catch (Exception e) {
-//			throw new BackendException("Could not perform an upsert. " + e.getMessage() + ".", e);
-//		}
-//
-//		logger.info("User " + name + " upserted");
-//	}
-
-	protected void finalize() {
+	public void finalize() {
 		try {
 			if (session != null) {
 				session.getCluster().close();
@@ -141,5 +95,4 @@ public class BackendSession {
 			logger.error("Could not close existing cluster", e);
 		}
 	}
-
 }

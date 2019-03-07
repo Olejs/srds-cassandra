@@ -23,10 +23,11 @@ public class Main {
 
 		Properties properties = new Properties();
 		try {
-			properties.load(Main.class.getClassLoader().getResourceAsStream(PROPERTIES_FILENAME));
 
+			properties.load(Main.class.getClassLoader().getResourceAsStream(PROPERTIES_FILENAME));
 			contactPoint = properties.getProperty("contact_point");
 			keyspace = properties.getProperty("keyspace");
+
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
@@ -36,17 +37,14 @@ public class Main {
 		//crate meetup instance
 		MeetUp meetup = new MeetUp(session, meetUpId, workshopCount, workshopCapacity);
 
-
-		Client.spawnAndSendToTrain(clientCount, meetup, 1000, simulationTime, checkDelay, workshopCapacity);
+		//arranging situation
+		Client.arrange(clientCount, meetup, 1000, simulationTime, checkDelay, workshopCapacity);
 
 		Stats.getInstance().showStats();
-//		Client.spawnAndSendToTrain(clientCount, train, 1000, simulationTime, checkDelay, roomCapacity);
 
-//		String output = session.selectAll();
-//		System.out.println("Users: \n" + output);
-
-		System.out.println("wszystko sie udalo");
 		session.deleteAll();
+
+		session.finalize();
 
 		System.exit(0);
 	}
