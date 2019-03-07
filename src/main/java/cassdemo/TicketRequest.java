@@ -33,8 +33,8 @@ public class TicketRequest {
         }
     }
 
-    public boolean isApproved(int clientId, int trainId) {
-        List<TicketRequest> ticketRequests = getAllHappy(trainId);
+    public boolean isApproved(int clientId, int meetUpId) {
+        List<TicketRequest> ticketRequests = getAllHappy(meetUpId);
 
         ArrayList<Integer> workshops = new ArrayList<>();
 
@@ -72,8 +72,8 @@ public class TicketRequest {
         return seats;
     }
 
-    public List<TicketRequest> getAllHappy(int trainId) {
-        ResultSet rs = BackendSession.getAllHeppy(trainId);
+    public List<TicketRequest> getAllHappy(int meetUpId) {
+        ResultSet rs = BackendSession.getAllHeppy(meetUpId);
         List<TicketRequest> ticketRequests = new ArrayList<>();
 
         rs.forEach(r -> {

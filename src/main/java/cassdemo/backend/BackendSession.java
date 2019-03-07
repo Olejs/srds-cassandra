@@ -79,8 +79,8 @@ public class BackendSession {
 		session.execute(query);
 	}
 
-	public static ResultSet getAllHeppy(int trainId) {
-		StringBuilder sb = new StringBuilder("SELECT * FROM ").append("TicketRequests").append(" WHERE meetUpId=").append(trainId);
+	public static ResultSet getAllHeppy(int meetUpId) {
+		StringBuilder sb = new StringBuilder("SELECT * FROM ").append("TicketRequests").append(" WHERE meetUpId=").append(meetUpId);
 		String query = sb.toString();
 		ResultSet rs = session.execute(query);
 		return rs;
