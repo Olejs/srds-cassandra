@@ -60,4 +60,64 @@ run {
     }
 }
 
+apply plugin: 'java'
 
+task(crashTest, dependsOn: 'classes', type: JavaExec) {
+    main = 'cassdemo.Main'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(create_table_ticketrequests, dependsOn: 'classes', type: JavaExec) {
+    main = 'cassdemo.backend.queries.CreateTableTicketRequests'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(tickets_insert, dependsOn: 'classes', type: JavaExec) {
+    if(project.hasProperty('myargs')){
+        args(myargs.split(','))
+    }
+    main = 'cassdemo.backend.queries.InsertCustom'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(tickets_trun, dependsOn: 'classes', type: JavaExec) {
+    main = 'cassdemo.backend.queries.DeleteAll'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(create_table_meetups, dependsOn: 'classes', type: JavaExec) {
+    main = 'cassdemo.backend.queries.CreateTableMeetUps'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(meetups_insert, dependsOn: 'classes', type: JavaExec) {
+    if(project.hasProperty('myargs')){
+        args(myargs.split(','))
+    }
+    main = 'cassdemo.backend.queries.InsertCustomMeetup'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(create_table_workshops, dependsOn: 'classes', type: JavaExec) {
+    main = 'cassdemo.backend.queries.CreateTableWorkshops'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+task(workshops_insert_by_meetup_name, dependsOn: 'classes', type: JavaExec) {
+    if(project.hasProperty('myargs')){
+        args(myargs.split(','))
+    }
+    main = 'cassdemo.backend.queries.InsertWorkshopByMeetupName'
+    classpath = sourceSets.main.runtimeClasspath
+}
+task(create_table_customers, dependsOn: 'classes', type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'cassdemo.backend.queries.CreateTableCustomers'
+
+}
+
+
+task(reset_systems, dependsOn: 'classes', type: JavaExec) {
+    main = 'cassdemo.backend.queries.ResetSystem'
+    classpath = sourceSets.main.runtimeClasspath
+}

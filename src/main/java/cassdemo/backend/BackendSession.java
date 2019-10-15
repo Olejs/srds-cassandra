@@ -43,6 +43,21 @@ public class BackendSession {
 		prepareStatements();
 	}
 
+	public void main(int meetUpId, int clientId, int seat)  throws BackendException {
+
+		StringBuilder sb = new StringBuilder("INSERT INTO ")
+				.append("TicketRequests").append("(id, meetUpId, customerId, seats, timestamp) ")
+				.append("VALUES (").append(UUID.randomUUID())
+				.append(", ").append(meetUpId)
+				.append(", ").append(clientId)
+				.append(", ").append(seat)
+				.append(", ").append(System.currentTimeMillis())
+				.append(");");
+
+		String query = sb.toString();
+		session.execute(query);
+	}
+
 	public void prepareStatements() throws BackendException {
 		//tworzymy tabele TicketRequests
 		StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS ")
@@ -66,6 +81,21 @@ public class BackendSession {
 				.append(", ").append(ticketRequest.getMeetUpId())
 				.append(", ").append(ticketRequest.getClientId())
 				.append(", ").append(ticketRequest.getSeats())
+				.append(", ").append(System.currentTimeMillis())
+				.append(");");
+
+		String query = sb.toString();
+		session.execute(query);
+	}
+
+	public static void insertCutomRow(int meetUpId, int clientId, int seat)  throws BackendException {
+
+		StringBuilder sb = new StringBuilder("INSERT INTO ")
+				.append("TicketRequests").append("(id, meetUpId, customerId, seats, timestamp) ")
+				.append("VALUES (").append(UUID.randomUUID())
+				.append(", ").append(meetUpId)
+				.append(", ").append(clientId)
+				.append(", ").append(seat)
 				.append(", ").append(System.currentTimeMillis())
 				.append(");");
 

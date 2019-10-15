@@ -1,16 +1,18 @@
 package cassdemo;
 
-import java.io.IOException;
-import java.util.Properties;
-
 import cassdemo.backend.BackendException;
 import cassdemo.backend.BackendSession;
+
+import java.io.IOException;
+import java.util.Properties;
 
 public class Main {
 
 	private static final String PROPERTIES_FILENAME = "config.properties";
 
 	public static void main(String[] args) throws IOException, BackendException {
+
+
 		String contactPoint = null;
 		String keyspace = null;
 
@@ -38,7 +40,7 @@ public class Main {
 		MeetUp meetup = new MeetUp(session, meetUpId, workshopCount, workshopCapacity);
 
 		//arranging situation
-		Client.arrange(clientCount, meetup, 1000, simulationTime, checkDelay, workshopCapacity);
+		Client2.arrange(clientCount, meetup, 1000, simulationTime, checkDelay, workshopCapacity);
 
 		Stats.getInstance().showStats();
 

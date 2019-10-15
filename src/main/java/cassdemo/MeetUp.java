@@ -28,28 +28,38 @@ public class MeetUp {
     }
 
     public boolean buyTicket(int clientId, int seats, int checkDelay) {
+
         TicketRequest ticketRequest = new TicketRequest(id, clientId, seats, workshopCount, workshopCapacity);
         ticketRequest.save();
         try {
-            Thread.sleep(checkDelay);
+            Thread.sleep(2000);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         return ticketRequest.isApproved(clientId, id);
+
     }
 
     public void cancelTicket(int clientId) {
+
         TicketRequest ticketRequest = new TicketRequest(id, clientId, -1, workshopCount, workshopCapacity);
         ticketRequest.save();
+
     }
 
     public boolean start(int clientId) {
+
         TicketRequest ticketRequest = new TicketRequest(id, clientId, 0, workshopCount, workshopCapacity);
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         return ticketRequest.isApproved(clientId, id);
+
     }
 }

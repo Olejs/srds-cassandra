@@ -44,8 +44,11 @@ public class TicketRequest {
 
         for (TicketRequest ticketRequest : ticketRequests) {
             boolean decision = false;
+
             for (int i = 0; i < workshopCount; i++) {
+
                 int availableSeats = workshops.get(i);
+
                 if (availableSeats >= ticketRequest.seats) {
                     workshops.set(i, availableSeats - ticketRequest.seats);
                     decision = true;
@@ -73,6 +76,7 @@ public class TicketRequest {
     }
 
     public List<TicketRequest> getAllHappy(int meetUpId) {
+
         ResultSet rs = BackendSession.getAllHeppy(meetUpId);
         List<TicketRequest> ticketRequests = new ArrayList<>();
 
